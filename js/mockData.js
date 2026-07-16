@@ -2037,20 +2037,8 @@ function extractBrand(title) {
 }
 
 function buildSearchQuery(product) {
-    const brand = extractBrand(product.title);
-    if (brand) {
-        // Brand found: use "brand + category" for precise results
-        let query = `${brand} ${product.category}`;
-        if (product.style && product.style.length <= 6) {
-            query += ` ${product.style}`;
-        }
-        if (product.color && product.color !== '多色' && product.color.length <= 4) {
-            query += ` ${product.color}`;
-        }
-        return query;
-    }
-    // No brand: use the first 12 chars of title (usually contains the core product name)
-    return product.title.slice(0, 12);
+    // Use full title for most accurate platform search results
+    return product.title;
 }
 
 // Platform links generator — uses brand+category for precise search, sorted by sales
