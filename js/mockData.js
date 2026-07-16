@@ -2063,3 +2063,8 @@ function generatePlatformLink(product) {
     };
     return platformUrls[product.platform] || '#';
 }
+
+// Node.js compatibility export
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { MOCK_PRODUCTS, PLATFORM_NAMES, KNOWN_BRANDS, extractBrand, buildSearchQuery, generatePlatformLink };
+}

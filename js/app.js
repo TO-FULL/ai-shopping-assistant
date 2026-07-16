@@ -239,7 +239,7 @@ class ShoppingApp {
                     <strong>推荐理由：</strong>${product.reason}
                 </div>
                 <div class="product-actions">
-                    <button class="btn-buy">去购买</button>
+                    <a class="btn-buy" href="${product.link}" target="_blank" rel="noopener">立即购买</a>
                     <button class="btn-detail" data-id="${product.id}">详情</button>
                 </div>
             </div>
@@ -248,10 +248,6 @@ class ShoppingApp {
         card.querySelector('.btn-detail').addEventListener('click', (e) => {
             e.stopPropagation();
             this.showProductDetail(product);
-        });
-        card.querySelector('.btn-buy').addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.showDetailPage(product);
         });
 
         card.addEventListener('click', () => this.showProductDetail(product));
@@ -283,17 +279,13 @@ class ShoppingApp {
                     <p>${product.reason}</p>
                 </div>
                 <div class="modal-actions">
-                    <button class="btn-buy" id="modalBuyBtn">立即购买</button>
+                    <a class="btn-buy" href="${product.link}" target="_blank" rel="noopener">立即购买</a>
                 </div>
             </div>
         `;
         this.modalOverlay.classList.remove('hidden');
         requestAnimationFrame(() => this.modalOverlay.classList.add('show'));
         document.body.style.overflow = 'hidden';
-
-        this.modalBody.querySelector('#modalBuyBtn').addEventListener('click', () => {
-            this.showDetailPage(product);
-        });
     }
 
     closeModal() {
@@ -364,7 +356,7 @@ class ShoppingApp {
                 </div>
             </div>
             <div class="detail-action-bar">
-                <button class="btn-buy" id="btnImmediateBuy">立即购买</button>
+                <a class="btn-buy" href="${product.link}" target="_blank" rel="noopener">立即购买</a>
                 <button class="btn-back-list" id="btnBackList">返回商品列表</button>
             </div>
         `;
@@ -391,12 +383,6 @@ class ShoppingApp {
                     e.target.classList.add('active');
                 }
             });
-        });
-
-        this.detailBody.querySelector('#btnImmediateBuy').addEventListener('click', () => {
-            const selectedColor = colors.length ? this.detailBody.querySelector('#colorOptions .active')?.dataset.value : '';
-            const selectedSize = sizes.length ? this.detailBody.querySelector('#sizeOptions .active')?.dataset.value : '';
-            this.showOrderSuccess(product, quantity, selectedColor, selectedSize);
         });
 
         this.detailBody.querySelector('#btnBackList').addEventListener('click', () => this.hideOrderPage());
